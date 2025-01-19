@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import os
 import numpy as np
 import pickle
+import joblib
 
 app = Flask(__name__)
 
@@ -56,6 +57,8 @@ model_path = os.path.join(base_dir, "../code/model/car_price_predictor")
 
 predictor = pickle.load(open(model_path, 'rb'))
 
+# Later, load the scaler when making predictions
+scaler_fit = joblib.load("../code/model/scaler.pkl")
 
 
 @app.route("/")
@@ -114,13 +117,12 @@ def car_price_prediction():
 def get_predicted_selling_price(p_user_data):
     selling_price = -1
 
-    scalar = StandardScaler()
+    # scalar = StandardScaler()
     reshaped_array = np.array(list(p_user_data)).reshape(1, -1)
-    # final_data = scalar.fit_transform(reshaped_array)
-    # print(final_data)
-    print(reshaped_array)
+    final_data = scaler_fit.transform(reshaped_array)
+
     try:
-        selling_price = predictor.predict(reshaped_array)
+        selling_price = predictor.predict(final_data)
         return np.exp(selling_price[0])
     except:
         selling_price = -1
