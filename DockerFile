@@ -1,0 +1,19 @@
+FROM python:3.9-slim
+
+# copy the working directory in the container
+WORKDIR /app
+
+# copy requirements.txt into the container
+COPY requirements.txt /app
+
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# copy the app directory into the container
+COPY app /app
+
+# flask will run on 5000
+EXPOSE 5000
+
+# cmd command to run flask
+CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0" ]
