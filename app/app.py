@@ -56,25 +56,29 @@ predictor = joblib.load("./model/car_price_predictor")
 scaler_fit_model = joblib.load("./model/scaler.pkl")
 
 
-@app.route("/")
-def index():
-    return render_template(
-        'index.html',
-        car_brands = car_brands,
-        owner = owner,
-        fuel = fuel,
-        bought_year_range = bought_year_range,
-        transmission = transmission,
-        max_power_range = max_power_range,
-        seller_type = seller_type,
-        mileage_range = mileage_range,
-        seats_range = seats_range,
-        engine_cc_range = engine_cc_range
-    )
+# @app.route("/")
+# def index():
+#     return render_template(
+#         'index.html',
+#         car_brands = car_brands,
+#         owner = owner,
+#         fuel = fuel,
+#         bought_year_range = bought_year_range,
+#         transmission = transmission,
+#         max_power_range = max_power_range,
+#         seller_type = seller_type,
+#         mileage_range = mileage_range,
+#         seats_range = seats_range,
+#         engine_cc_range = engine_cc_range,
+#         selected_data= {}
+#     )
 
 
 @app.route('/', methods=['GET', 'POST'])
 def car_price_prediction():
+
+    form_datas = {}
+    pred_selling_price = None
 
     if request.method == 'POST':
         form_datas = {
@@ -105,7 +109,8 @@ def car_price_prediction():
         mileage_range = mileage_range,
         seats_range = seats_range,
         engine_cc_range = engine_cc_range,
-        selling_price = pred_selling_price
+        selling_price = pred_selling_price,
+        selected_data = form_datas
     )
 
 

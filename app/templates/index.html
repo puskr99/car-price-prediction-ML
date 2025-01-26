@@ -8,67 +8,81 @@
 <body>
     <h1>Predict Your Car's Price</h1>
 
-    <form method="post">
+    <form method="post" action="/">
+
         <label for="car_brand">Car Brand:</label>
         <select id="car_brand" name="car_brand">
             {% for brand in car_brands %}
-                <option value="{{ brand }}" {% if selected_brand == brand %}selected{% endif %}>{{ brand }}</option>
+                <option value="{{ brand }}" {% if selected_data.get('car_brand') == brand %}selected{% endif %}>
+                    {{ brand }}
+                </option>
             {% endfor %}
         </select><br><br>
-
 
         <label for="bought_year">Bought Year</label>
         <select id="bought_year" name="bought_year">
             {% for year in range(2025, 1950, -1) %}
-                <option value="{{ year }}" {% if selected_year == year %}selected{% endif %}>{{ year }}</option>
+                <option value="{{ year }}" {% if selected_data.get('bought_year')|int == year %}selected{% endif %}>
+                    {{ year }}
+                </option>
             {% endfor %}
         </select><br><br>
 
-        
         <label for="km_driven">Km Driven</label>
-        <input type="number" id="km_driven" name="km_driven" min = "0" max = "9999999" placeholder="0" required><br><br>
-
+        <input type="number" id="km_driven" name="km_driven" min="0" max="9999999" 
+               placeholder="0" value="{{ selected_data.get('km_driven', '') }}" required><br><br>
 
         <label for="fuel">Fuel Type</label>
         <select id="fuel" name="fuel">
             {% for _fuel in fuel %}
-                <option value="{{ _fuel }}" {% if selected__fuel == _fuel %}selected{% endif %}>{{ _fuel }}</option>
+                <option value="{{ _fuel }}" {% if selected_data.get('fuel') == _fuel %}selected{% endif %}>
+                    {{ _fuel }}
+                </option>
             {% endfor %}
         </select><br><br>
-
 
         <label for="owner">Owner Type</label>
         <select id="owner" name="owner">
             {% for _owner in owner %}
-                <option value="{{ _owner }}" {% if selected__owner == _owner %}selected{% endif %}>{{ _owner }}</option>
+                <option value="{{ _owner }}" {% if selected_data.get('owner') == _owner %}selected{% endif %}>
+                    {{ _owner }}
+                </option>
             {% endfor %}
         </select><br><br>
 
-        <label for="mileage">Mileage (in kmpl) </label>
-        <input type="number" name = "mileage" min =1 max=999  placeholder="1" required/><br><br>
+        <label for="mileage">Mileage (in kmpl)</label>
+        <input type="number" name="mileage" min="1" max="999" placeholder="1" 
+               value="{{ selected_data.get('mileage', '') }}" required/><br><br>
 
         <label for="transmission">Transmission Type</label>
         <select id="transmission" name="transmission">
             {% for _transmission in transmission %}
-                <option value="{{ _transmission }}" {% if selected__transmission == _transmission %}selected{% endif %}>{{ _transmission }}</option>
+                <option value="{{ _transmission }}" {% if selected_data.get('transmission') == _transmission %}selected{% endif %}>
+                    {{ _transmission }}
+                </option>
             {% endfor %}
         </select><br><br>
 
         <label for="seats">Number of Seats</label>
-        <input type="number" name = "seats" min=1 max=20 placeholder="1" required/><br><br>
+        <input type="number" name="seats" min="1" max="20" placeholder="1" 
+               value="{{ selected_data.get('seats', '') }}" required/><br><br>
 
         <label for="engine">Engine (in CC)</label>
-        <input type="number" name = "engine" min =1 max=999999 placeholder="1" required/><br><br>
+        <input type="number" name="engine" min="1" max="999999" placeholder="1" 
+               value="{{ selected_data.get('engine', '') }}" required/><br><br>
 
         <label for="seller">Seller Type</label>
         <select id="seller" name="seller">
             {% for _seller in seller_type %}
-                <option value="{{ _seller }}" {% if selected__seller == _seller %}selected{% endif %}>{{ _seller }}</option>
+                <option value="{{ _seller }}" {% if selected_data.get('seller') == _seller %}selected{% endif %}>
+                    {{ _seller }}
+                </option>
             {% endfor %}
         </select><br><br>
 
         <label for="max_power">Max Power (in bhp)</label>
-        <input type="number" name = "max_power" id="max_power" name="max_power" min=1 max=99999 placeholder="1" required><br><br>
+        <input type="number" id="max_power" name="max_power" min="1" max="99999" placeholder="1" 
+               value="{{ selected_data.get('max_power', '') }}" required><br><br>
 
         <button type="submit">Submit</button>
     </form>
@@ -76,12 +90,11 @@
     <div>
         {% if selling_price %}
             {% if selling_price != -1 %}
-                <p><strong>The predicted selling price is: {{ selling_price }}</strong></p>
+                <p><strong>The predicted selling price is: {{ selling_price | round(2)}}</strong></p>
             {% else %}
                 <p><strong>Couldn't predict the price. Please try again.</strong></p>
             {% endif %}
         {% endif %}
     </div>
-    
 </body>
 </html>
