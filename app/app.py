@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request
-import os
 import numpy as np
-import pickle
 import joblib
 
 app = Flask(__name__)
@@ -40,7 +38,7 @@ mileage_range = [1, 999]
 seller_type = ['Individual', 'Dealer', 'Trustmark Dealer']
 
 
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.preprocessing import LabelEncoder
 car_brands_encoded = []
 fuel_encoded = []
 transmission_encoded = []
@@ -52,13 +50,10 @@ fuel_encoded = le.fit_transform(fuel)
 transmission_encoded = le.fit_transform(transmission)
 seller_type_encoded = le.fit_transform(seller_type)
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(base_dir, "../code/model/car_price_predictor")
-
-predictor = pickle.load(open(model_path, 'rb'))
+predictor = joblib.load("./model/car_price_predictor")
 
 # Later, load the scaler when making predictions
-scaler_fit = joblib.load("../code/model/scaler.pkl")
+scaler_fit_model = joblib.load("./model/scaler.pkl")
 
 
 @app.route("/")
@@ -119,7 +114,7 @@ def get_predicted_selling_price(p_user_data):
 
     # scalar = StandardScaler()
     reshaped_array = np.array(list(p_user_data)).reshape(1, -1)
-    final_data = scaler_fit.transform(reshaped_array)
+    final_data = scaler_fit_model.transform(reshaped_array)
 
     try:
         selling_price = predictor.predict(final_data)
