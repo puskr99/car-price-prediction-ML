@@ -3,9 +3,12 @@
 
 
 ### Locally hosted Website implementing the model.
-![alt text](images/image.png)
+![alt text](images/empty.png)
 
 
+### 1.Prediction using random datas
+![alt text](images/pred_1.png)
 
-### Prediction using datas
-![alt text](images/image-1.png)
+
+### 2.Prediction using random datas
+![alt text](images/pred_1.png)
