@@ -4,12 +4,12 @@ import joblib
 
 app = Flask(__name__)
 
-owner_mapping = {
-    'First Owner': 1,
-    'Second Owner': 2,
-    'Third Owner': 3,
-    'Fourth & Above Owner': 4
-}
+# owner_mapping = {
+#     'First Owner': 1,
+#     'Second Owner': 2,
+#     'Third Owner': 3,
+#     'Fourth & Above Owner': 4
+# }
 
 car_brands = [
     "Maruti", "Skoda", "Honda", "Hyundai", "Toyota", "Ford", "Renault", 
@@ -19,36 +19,36 @@ car_brands = [
     "Isuzu", "Opel", "Peugeot"
 ]
 
-owner = ["First Owner", "Second Owner", "Third Owner", "Fourth & Above Owner"]
+# owner = ["First Owner", "Second Owner", "Third Owner", "Fourth & Above Owner"]
 
-fuel = ["Petrol", "Diesel"]
+# fuel = ["Petrol", "Diesel"]
 
-bought_year_range = [1950, 2026]
+bought_year_range = [1980, 2024]
 
-transmission = ["Manual", "Automatic"]
+# transmission = ["Manual", "Automatic"]
 
 max_power_range = [1, 99999]
 
-seats_range = [2, 14]
+# seats_range = [2, 14]
 
 engine_cc_range = [1, 99999]
 
 mileage_range = [1, 999]
 
-seller_type = ['Individual', 'Dealer', 'Trustmark Dealer']
+# seller_type = ['Individual', 'Dealer', 'Trustmark Dealer']
 
 
 from sklearn.preprocessing import LabelEncoder
 car_brands_encoded = []
-fuel_encoded = []
-transmission_encoded = []
-seller_type_encoded = []
+# fuel_encoded = []
+# transmission_encoded = []
+# seller_type_encoded = []
 
 le = LabelEncoder()
 car_brands_encoded = le.fit_transform(car_brands)
-fuel_encoded = le.fit_transform(fuel)
-transmission_encoded = le.fit_transform(transmission)
-seller_type_encoded = le.fit_transform(seller_type)
+# fuel_encoded = le.fit_transform(fuel)
+# transmission_encoded = le.fit_transform(transmission)
+# seller_type_encoded = le.fit_transform(seller_type)
 
 predictor = joblib.load("./model/car_price_predictor")
 
@@ -85,14 +85,14 @@ def car_price_prediction():
             "car_brand": car_brands_encoded[car_brands.index(request.form.get("car_brand"))],
             "bought_year": request.form.get("bought_year"),
             "km_driven": request.form.get("km_driven"),
-            "fuel": fuel_encoded[fuel.index(request.form.get("fuel"))],
-            "seller": seller_type_encoded[seller_type.index(request.form.get("seller"))],
-            "transmission": transmission_encoded[transmission.index(request.form.get("transmission"))],
-            "owner": owner_mapping[request.form.get("owner")],
+            # "fuel": fuel_encoded[fuel.index(request.form.get("fuel"))],
+            # "seller": seller_type_encoded[seller_type.index(request.form.get("seller"))],
+            # "transmission": transmission_encoded[transmission.index(request.form.get("transmission"))],
+            # "owner": owner_mapping[request.form.get("owner")],
             "mileage": request.form.get("mileage"),
             "engine": request.form.get("engine"),
             "max_power": request.form.get("max_power"),
-            "seats": request.form.get("seats"),
+            # "seats": request.form.get("seats"),
         }
 
         pred_selling_price = get_predicted_selling_price(form_datas.values())
@@ -100,14 +100,14 @@ def car_price_prediction():
     return render_template(
         'index.html',
         car_brands = car_brands,
-        owner = owner,
-        fuel = fuel,
+        # owner = owner,
+        # fuel = fuel,
         bought_year_range = bought_year_range,
-        transmission = transmission,
+        # transmission = transmission,
         max_power_range = max_power_range,
-        seller_type = seller_type,
+        # seller_type = seller_type,
         mileage_range = mileage_range,
-        seats_range = seats_range,
+        # seats_range = seats_range,
         engine_cc_range = engine_cc_range,
         selling_price = pred_selling_price,
         selected_data = form_datas
