@@ -7,8 +7,8 @@
 
 
 ### 1.Prediction using random datas
-![alt text](images/pred_1.png)
+![alt text](images/predicted_1.png)
 
 
 ### 2.Prediction using random datas
-![alt text](images/pred_1.png)
+![alt text](images/pred_2.png)
