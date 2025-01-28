@@ -136,7 +136,7 @@
         <div class="result">
             {% if selling_price %}
                 {% if selling_price != -1 %}
-                    <p><strong>The predicted selling price is: ${{ selling_price | round(2) }}</strong></p>
+                    <p><strong>The predicted selling price is: ${{ '{:,.2f}'.format(selling_price) }}</strong></p>
                 {% else %}
                     <p><strong>Couldn't predict the price. Please try again.</strong></p>
                 {% endif %}

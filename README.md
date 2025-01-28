@@ -7,9 +7,9 @@
 ![alt text](snapshots/empty.png)
 
 
-##### 1. Prediction using random data 1.
-![alt text](snapshots/predicted_1.png)
+##### 1. Prediction using random data 1 for Honda brand.
+![alt text](snapshots/honda.png)
 
 
-##### 2. Prediction using random data 2.
-![alt text](snapshots/pred_2.png)
+##### 2. Prediction using random data 2 for Maruti brand.
+![alt text](snapshots/maruti.png)
