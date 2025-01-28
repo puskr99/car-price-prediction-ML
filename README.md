@@ -4,12 +4,12 @@
 ### This is a car-price prediction project done using machine learning algorithms. Below are some snapshots of the implementation:
 
 ### Locally hosted website implementing the model.
-![alt text](images/empty.png)
+![alt text](snapshots/empty.png)
 
 
 ### 1.Prediction using the website with some set of random datas.
-![alt text](images/predicted_1.png)
+![alt text](snapshots/predicted_1.png)
 
 
 ### 2.Prediction using the website with some set of random datas.
-![alt text](images/pred_2.png)
+![alt text](snapshots/pred_2.png)
